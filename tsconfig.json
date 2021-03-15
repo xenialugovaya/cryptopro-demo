@@ -1,0 +1,31 @@
+{
+    "compilerOptions": {
+      "allowJs": true,
+      "esModuleInterop": true,
+      "moduleResolution": "node",
+      "module": "esnext",
+      "sourceMap": true,
+      "strict": true,
+      "target": "es5",
+      "jsx": "react",
+      "incremental": false,
+      "checkJs": false,
+      "typeRoots": [
+        "./types",
+        "./node_modules/@types"
+      ],
+      "lib": ["dom", "dom.iterable", "esnext"],
+      "outDir": "./dist",
+      "declaration": true,
+      "newLine": "LF",
+      "downlevelIteration": true
+    },
+    "exclude": [
+      "node_modules",
+      "dist"
+    ],
+    "include": [
+      "demo"
+, "cadesplugin"    ]
+}
+  
