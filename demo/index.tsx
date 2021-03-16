@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { getCadesObjects } from './cadesObjects';
-import { CertificateList } from './components/CertificateList';
 import { CadesContext } from './context';
 import { DemoPage } from './DemoPage';
 

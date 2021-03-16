@@ -1,16 +1,17 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import * as L from 'korus-ui';
-import { CertificateObject, ParsedCertificate } from '../types';
-import { CadesContext } from '../context';
 
 interface MessageFormProps {
   handleEncrypt: (message: string) => Promise<string | undefined>
   handleDecrypt: (encryptedMessage: string) => Promise<string | undefined>
+  handleSign: (message: string) => Promise<string | undefined>
 }
 
-export const MessageForm = ({ handleEncrypt, handleDecrypt }: MessageFormProps): React.ReactElement => {
-  const { envelopedData } = useContext(CadesContext);
-
+export const MessageForm = ({
+  handleEncrypt,
+  handleDecrypt,
+  handleSign,
+}: MessageFormProps): React.ReactElement => {
   const [message, setMessage] = useState('');
   const [encryptedMessage, setEncryptedMessage] = useState('');
 
@@ -22,12 +23,11 @@ export const MessageForm = ({ handleEncrypt, handleDecrypt }: MessageFormProps):
   const onDecryptClick = async () => {
     const decrypted = await handleDecrypt(encryptedMessage);
     if (decrypted !== undefined) setEncryptedMessage(decrypted);
+  };
 
-    // await envelopedData?.create();
-    // await envelopedData?.getDecriptedMessage(encryptedMessage);
-    // const content = await envelopedData?.getContent();
-    // console.log('content', content);
-    // setEncryptedMessage(await envelopedData?.getContent());
+  const onSignClick = async () => {
+    const signedMessage = await handleSign(message);
+    if (signedMessage !== undefined) setMessage(signedMessage);
   };
 
   return (
@@ -36,7 +36,12 @@ export const MessageForm = ({ handleEncrypt, handleDecrypt }: MessageFormProps):
         value={message}
         onChange={(ev) => setMessage(ev.component.value)}
       />
-      {message && <L.Button onClick={onEncryptClick}>Encrypt</L.Button>}
+      {message && (
+      <>
+        <L.Button onClick={onSignClick}>Sign</L.Button>
+        <L.Button onClick={onEncryptClick}>Encrypt</L.Button>
+      </>
+      )}
       {encryptedMessage && (
       <>
         <L.Textarea

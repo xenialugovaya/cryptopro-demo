@@ -1,6 +1,4 @@
-import React, {
-  useContext, useState,
-} from 'react';
+import React, { useContext, useState } from 'react';
 import * as L from 'korus-ui';
 import { CadesContext } from './context';
 import { getAllValidCerts } from './helpers/getAllValidCerts';
@@ -11,7 +9,9 @@ import { MessageForm } from './components/MessageForm';
 
 export const DemoPage = (): React.ReactElement | null => {
   const cadesObjects = useContext(CadesContext);
-  const { store, signer, envelopedData } = cadesObjects;
+  const {
+    store, signer, envelopedData, signedData,
+  } = cadesObjects;
 
   const [certsCollection, setCertsCollection] = useState<CertificateObject[] | null>(null);
   const [certObject, setCertObject] = useState<CertificateObject | null>(null);
@@ -33,6 +33,14 @@ export const DemoPage = (): React.ReactElement | null => {
     await signer.create();
     await signer.setCertificate(certObject);
     setShowMessageForm(true);
+  };
+
+  const handleSign = async (message: string) => {
+    if (!signer || !signedData) return undefined;
+    await signedData.create();
+    await signedData.setContent(message);
+    const signedMessage = await signedData?.signContent(signer.getSigner());
+    return signedMessage;
   };
 
   const handleEncrypt = async (message: string): Promise<string | undefined> => {
@@ -82,6 +90,7 @@ export const DemoPage = (): React.ReactElement | null => {
       <MessageForm
         handleEncrypt={handleEncrypt}
         handleDecrypt={handleDecrypt}
+        handleSign={handleSign}
       />
       )}
     </L.Div>

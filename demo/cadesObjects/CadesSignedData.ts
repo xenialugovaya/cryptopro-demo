@@ -42,13 +42,18 @@ export default class SignData {
     signer: CPSigner,
     encodingType = this.cadesplugin.CADESCOM_CADES_X_LONG_TYPE_1,
     shouldDetachSignature = false,
-  ): Promise<void> {
+  ): Promise<string> {
     if (!this.signedData) {
       throw new Error('SignedData was not created');
     }
 
-    await this.signedData.SignCades(signer, encodingType, shouldDetachSignature);
+    const signedContent = await this.signedData.SignCades(
+      signer,
+      encodingType,
+      shouldDetachSignature,
+    );
     console.log('Content was signed successfully!');
+    return signedContent;
   }
 
   public async verifySignature(
