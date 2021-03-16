@@ -1,38 +1,46 @@
-import React, {
-  useContext, useState,
-} from 'react';
+import React from 'react';
 import * as L from 'korus-ui';
-import { CadesContext } from '../context';
-import { getAllValidCerts } from '../helpers/getAllValidCerts';
+// import { CadesContext } from '../context';
+// import { getAllValidCerts } from '../helpers/getAllValidCerts';
 import { ParsedCertificate } from '../types';
 
-export const CertificateList = (): React.ReactElement | null => {
-  const cadesObjects = useContext(CadesContext);
-  const { store } = cadesObjects;
+interface CertificateListProps {
+  certs: ParsedCertificate[] | null,
+  selectedCert: ParsedCertificate | null,
+  setSelectedCert: React.Dispatch<React.SetStateAction<ParsedCertificate | null>>,
+}
 
-  const [certs, setCerts] = useState<ParsedCertificate[] | null>(null);
-  const [selectedCert, setSelectedCert] = useState<ParsedCertificate | null>(null);
+export const CertificateList = ({
+  certs,
+  selectedCert,
+  setSelectedCert,
+}: CertificateListProps): React.ReactElement =>
+// const cadesObjects = useContext(CadesContext);
+// const { store } = cadesObjects;
 
-  const handleGetCertsClick = () => {
-    if (!store) return;
+// const [certs, setCerts] = useState<ParsedCertificate[] | null>(null);
+// const [selectedCert, setSelectedCert] = useState<ParsedCertificate | null>(null);
 
-    getAllValidCerts(store).then((parsedCertificates) => {
-      setCerts(parsedCertificates);
-      setSelectedCert(parsedCertificates[0]);
-    });
-  };
+// const handleGetCertsClick = () => {
+//   if (!store) return;
 
-  const onClickContinue = () => {
+//   getAllValidCerts(store).then((parsedCertificates) => {
+//     setCerts(parsedCertificates);
+//     setSelectedCert(parsedCertificates[0]);
+//   });
+// };
 
-  };
+// const onClickContinue = () => {
 
-  if (!certs) {
-    return (
-      <L.Button onClick={handleGetCertsClick}>Получить все действующие сертификаты</L.Button>
-    );
-  }
+// };
 
-  return (
+// if (!certs) {
+//   return (
+//     <L.Button onClick={handleGetCertsClick}>Получить все действующие сертификаты</L.Button>
+//   );
+// }
+
+  (
     <L.Div _inner _txtCenter>
       <L.H3 _marginBottom>Выберите сертификат для подписания</L.H3>
       <L.Div _table>
@@ -67,15 +75,5 @@ export const CertificateList = (): React.ReactElement | null => {
           </L.TBody>
         </L.Table>
       </L.Div>
-      <L.StickyPanel offsetTop={200}>
-        <L.Div _inner>
-          {selectedCert && (
-          <L.Button onClick={onClickContinue}>
-            Продолжить
-          </L.Button>
-          )}
-        </L.Div>
-      </L.StickyPanel>
     </L.Div>
   );
-};

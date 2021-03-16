@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { getCadesObjects } from './cadesObjects';
 import { CertificateList } from './components/CertificateList';
 import { CadesContext } from './context';
+import { DemoPage } from './DemoPage';
 
 getCadesObjects().then(async (CadesObjects) => {
   // const { store } = CadesObjects;
@@ -22,7 +23,7 @@ getCadesObjects().then(async (CadesObjects) => {
   // console.log('subject', subject);
   const CadesDemo = () => (
     <CadesContext.Provider value={CadesObjects}>
-      <CertificateList />
+      <DemoPage />
     </CadesContext.Provider>
   );
 
