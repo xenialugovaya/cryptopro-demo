@@ -35,4 +35,12 @@ export default class Signer {
 
     return this.signer.Certificate;
   }
+
+  public getSigner(): CPSigner {
+    if (!this.signer) {
+      throw new Error('Signer was not created');
+    }
+
+    return this.signer;
+  }
 }

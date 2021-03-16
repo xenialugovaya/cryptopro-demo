@@ -20,9 +20,9 @@ export interface CadesStore {
   Close(): WithPromise<void>;
   Certificates: WithPromise<SearchObject<CertificateObject>>;
 }
-export interface EnvelopedData {
+export interface CadesEnvelopedData {
   Decrypt(envelopedMessage: string): void;
-  Encrypt(capicomEncodingType: CapicomEncodingType): Blob;
+  Encrypt(capicomEncodingType: number): string;
   Content: WithPromise<string>;
   Algorithm: WithPromise<number>;
   Recipients: CertificateObject[];
