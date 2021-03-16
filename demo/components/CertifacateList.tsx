@@ -1,25 +1,36 @@
 import React, {
-  FC, useContext, useEffect, useState,
+  useContext, useState,
 } from 'react';
 import * as L from 'korus-ui';
 import { CadesContext } from '../context';
 import { getAllValidCerts } from '../helpers/getAllValidCerts';
 import { ParsedCertificate } from '../types';
 
-export const CertificateList = (): React.ReactElement => {
+export const CertificateList = (): React.ReactElement | null => {
   const cadesObjects = useContext(CadesContext);
   const { store } = cadesObjects;
+
   const [certs, setCerts] = useState<ParsedCertificate[] | null>(null);
-  console.log('certs', certs);
   const [selectedCert, setSelectedCert] = useState<ParsedCertificate | null>(null);
 
-  useEffect(() => {
+  const handleGetCertsClick = () => {
     if (!store) return;
 
     getAllValidCerts(store).then((parsedCertificates) => {
       setCerts(parsedCertificates);
+      setSelectedCert(parsedCertificates[0]);
     });
-  }, [store]);
+  };
+
+  const onClickContinue = () => {
+
+  };
+
+  if (!certs) {
+    return (
+      <L.Button onClick={handleGetCertsClick}>Получить все действующие сертификаты</L.Button>
+    );
+  }
 
   return (
     <L.Div _inner _txtCenter>
@@ -58,9 +69,11 @@ export const CertificateList = (): React.ReactElement => {
       </L.Div>
       <L.StickyPanel offsetTop={200}>
         <L.Div _inner>
-          {/* <L.Button _right _primary isDisabled={isDisabledButton} onClick={onClickContinue}>
+          {selectedCert && (
+          <L.Button onClick={onClickContinue}>
             Продолжить
-          </L.Button> */}
+          </L.Button>
+          )}
         </L.Div>
       </L.StickyPanel>
     </L.Div>

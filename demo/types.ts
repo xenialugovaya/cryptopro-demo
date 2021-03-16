@@ -35,6 +35,7 @@ export interface EnvelopedData {
 export interface CPSigner {
   Certificate: WithPromise<CertificateObject>;
   TSAAddress: WithPromise<string>;
+  propset_Certificate(certificate: CertificateObject): void;
 }
 export interface RawSignature {
   SignHash(hashedData: CadesHashedData, certificate: CertificateObject): Promise<string>;
