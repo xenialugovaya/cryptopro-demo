@@ -7,6 +7,7 @@ import { getAllValidCerts } from './helpers/getAllValidCerts';
 import { CertificateObject, ParsedCertificate } from './types';
 import { CertificateList } from './components/CertificateList';
 import { parseCertificateArray } from './helpers/parseCertificate';
+import { MessageForm } from './components/MessageForm';
 
 export const DemoPage = (): React.ReactElement | null => {
   const cadesObjects = useContext(CadesContext);
@@ -16,6 +17,7 @@ export const DemoPage = (): React.ReactElement | null => {
   const [certObject, setCertObject] = useState<CertificateObject | null>(null);
   const [certs, setCerts] = useState<ParsedCertificate[] | null>(null);
   const [selectedCert, setSelectedCert] = useState<ParsedCertificate | null>(null);
+  const [showMessageForm, setShowMessageForm] = useState<boolean>(false);
 
   const handleGetCertsClick = () => {
     if (!store) return;
@@ -26,10 +28,28 @@ export const DemoPage = (): React.ReactElement | null => {
     });
   };
 
-  const onClickContinue = () => {
-    if (!certObject) return;
-    signer?.setCertificate(certObject);
-    envelopedData?.addCertificate(certObject);
+  const onClickContinue = async () => {
+    if (!certObject || !signer) return;
+    await signer.create();
+    await signer.setCertificate(certObject);
+    setShowMessageForm(true);
+  };
+
+  const handleEncrypt = async (message: string): Promise<string | undefined> => {
+    if (!envelopedData || !certObject) return undefined;
+    await envelopedData.create();
+    await envelopedData.setContent(message);
+    await envelopedData.addCertificate(certObject);
+    const encrypted = await envelopedData.getEncryptedMessage();
+    return encrypted;
+  };
+
+  const handleDecrypt = async (encryptedMessage: string): Promise<string | undefined> => {
+    if (!envelopedData || !certObject) return undefined;
+    await envelopedData.create();
+    await envelopedData.getDecryptedMessage(encryptedMessage);
+    const content = await envelopedData.getContent();
+    return content;
   };
 
   if (!certs) {
@@ -58,6 +78,12 @@ export const DemoPage = (): React.ReactElement | null => {
           )}
         </L.Div>
       </L.StickyPanel>
+      {showMessageForm && (
+      <MessageForm
+        handleEncrypt={handleEncrypt}
+        handleDecrypt={handleDecrypt}
+      />
+      )}
     </L.Div>
   );
 };

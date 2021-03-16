@@ -14,10 +14,11 @@ export default class Signer {
 
   public async create(): Promise<void> {
     if (window.Promise) {
-      this.signer = await this.cadesplugin.CreateObjectAsync<CPSigner>('CAdESCOM.CPSinger');
+      this.signer = await this.cadesplugin.CreateObjectAsync<CPSigner>('CAdESCOM.CPSigner');
     } else {
-      this.signer = this.cadesplugin.CreateObject<CPSigner>('CAdESCOM.CPSinger');
+      this.signer = this.cadesplugin.CreateObject<CPSigner>('CAdESCOM.CPSigner');
     }
+    console.log('Signer created!');
   }
 
   public async setCertificate(certificate: CertificateObject): Promise<void> {
@@ -26,6 +27,7 @@ export default class Signer {
     }
 
     await this.signer.propset_Certificate(certificate);
+    console.log('Certificate set successfully!');
   }
 
   public async getCertificate(): Promise<CertificateObject> {

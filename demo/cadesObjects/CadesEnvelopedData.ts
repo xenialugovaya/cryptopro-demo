@@ -26,6 +26,7 @@ export default class EnvelopedData {
     }
 
     await this.envelopedData.propset_Content(content);
+    console.log('Content was set successfully!');
   }
 
   public async getContent(): Promise<string> {
@@ -42,13 +43,14 @@ export default class EnvelopedData {
     }
 
     const encrypted = await this.envelopedData.Encrypt(this.cadesplugin.CADESCOM_ENCODE_BASE64);
+    console.log('encrypted', encrypted);
     if (encrypted === '') {
       throw new Error('Encrypt failed');
     }
     return encrypted;
   }
 
-  public async getDecriptedMessage(message: string): Promise<void> {
+  public async getDecryptedMessage(message: string): Promise<void> {
     if (!this.envelopedData) {
       throw new Error('EnvelopedData was not created');
     }
