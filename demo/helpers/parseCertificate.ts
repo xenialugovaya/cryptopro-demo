@@ -1,4 +1,3 @@
-import Store from '../cadesObjects/CadesStore';
 import { CertificateObject, ParsedCertificate } from '../types';
 
 const stringToObj = (string: string) => {
@@ -22,4 +21,18 @@ export const parseCertificate = async (certificate: CertificateObject)
     serial,
     thumbprint,
   };
+};
+
+export const parseCertificateArray = async (certs: CertificateObject[])
+: Promise<ParsedCertificate[]> => {
+  const parsedCerts: ParsedCertificate[] = [];
+
+  for (let i = 0; i < certs.length; i += 1) {
+    const current = certs[i];
+    if (current === undefined) continue;
+    const parsed = await parseCertificate(current);
+    parsedCerts.push(parsed);
+  }
+
+  return parsedCerts;
 };

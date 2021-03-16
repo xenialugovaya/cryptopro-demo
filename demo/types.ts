@@ -25,7 +25,9 @@ export interface CadesEnvelopedData {
   Encrypt(capicomEncodingType: number): string;
   Content: WithPromise<string>;
   Algorithm: WithPromise<number>;
-  Recipients: CertificateObject[];
+  Recipients: {
+    Add(cert: CertificateObject):void
+  };
   objid: number;
   propset_Content(content: string): void;
   propset_Algorithm: number;

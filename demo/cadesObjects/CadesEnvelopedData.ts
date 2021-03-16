@@ -1,5 +1,5 @@
 import {
-  CadesPlugin, CadesEnvelopedData,
+  CadesPlugin, CadesEnvelopedData, CertificateObject,
 } from '../types';
 
 export default class EnvelopedData {
@@ -54,5 +54,13 @@ export default class EnvelopedData {
     }
 
     await this.envelopedData.Decrypt(message);
+  }
+
+  public async addCertificate(certificate: CertificateObject): Promise<void> {
+    if (!this.envelopedData) {
+      throw new Error('EnvelopedData was not created');
+    }
+    const recipients = await this.envelopedData.Recipients;
+    recipients.Add(certificate);
   }
 }

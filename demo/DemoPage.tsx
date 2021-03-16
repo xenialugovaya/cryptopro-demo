@@ -4,28 +4,32 @@ import React, {
 import * as L from 'korus-ui';
 import { CadesContext } from './context';
 import { getAllValidCerts } from './helpers/getAllValidCerts';
-import { ParsedCertificate } from './types';
+import { CertificateObject, ParsedCertificate } from './types';
 import { CertificateList } from './components/CertificateList';
+import { parseCertificateArray } from './helpers/parseCertificate';
 
 export const DemoPage = (): React.ReactElement | null => {
   const cadesObjects = useContext(CadesContext);
-  const { store, signer } = cadesObjects;
+  const { store, signer, envelopedData } = cadesObjects;
 
+  const [certsCollection, setCertsCollection] = useState<CertificateObject[] | null>(null);
+  const [certObject, setCertObject] = useState<CertificateObject | null>(null);
   const [certs, setCerts] = useState<ParsedCertificate[] | null>(null);
   const [selectedCert, setSelectedCert] = useState<ParsedCertificate | null>(null);
 
   const handleGetCertsClick = () => {
     if (!store) return;
 
-    getAllValidCerts(store).then((parsedCertificates) => {
-      setCerts(parsedCertificates);
-      setSelectedCert(parsedCertificates[0]);
+    getAllValidCerts(store).then(async (certificates) => {
+      setCertsCollection(certificates as CertificateObject[]);
+      setCerts(await parseCertificateArray(certificates as CertificateObject[]));
     });
   };
 
   const onClickContinue = () => {
-    if (!selectedCert) return;
-    // signer?.setCertificate(selectedCert);
+    if (!certObject) return;
+    signer?.setCertificate(certObject);
+    envelopedData?.addCertificate(certObject);
   };
 
   if (!certs) {
@@ -41,6 +45,8 @@ export const DemoPage = (): React.ReactElement | null => {
         certs={certs}
         selectedCert={selectedCert}
         setSelectedCert={setSelectedCert}
+        certsCollection={certsCollection}
+        setCertObject={setCertObject}
       />
       )}
       <L.StickyPanel offsetTop={200}>
