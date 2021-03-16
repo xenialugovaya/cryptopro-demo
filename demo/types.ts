@@ -48,7 +48,10 @@ export interface CadesSignedData {
   ContentEncoding: WithPromise<number>;
   Content: WithPromise<string>;
   SignCades(signer: CPSigner, cadesBES: number, bDetached?: boolean): WithPromise<SignedMessage>;
+  VerifyCades(signedContent: string, cadesBES: number): WithPromise<void>
   SignHash(hashData: CadesHashedData, signer: CPSigner, cadesType: number, encodingType?: number): WithPromise<string>;
+  propset_Content(content: string): void;
+  propset_ContentEncoding(encodingType: number): void;
 }
 export interface About {
   MajorVersion: Promise<any>;
