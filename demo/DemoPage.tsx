@@ -36,11 +36,14 @@ export const DemoPage = (): React.ReactElement | null => {
     setShowMessageForm(true);
   };
 
-  const handleSign = async (message: string) => {
+  const handleSign = async (message: string, shouldDetach: boolean) => {
     if (!signer || !signedData) return undefined;
     await signedData.create();
     await signedData.setContent(message);
-    const signedMessage = await signedData.signContent(signer.getSigner());
+
+    const signedMessage = shouldDetach
+      ? await signedData.signContentDetachedSignature(signer.getSigner())
+      : await signedData.signContent(signer.getSigner());
     return signedMessage;
   };
 
@@ -61,10 +64,14 @@ export const DemoPage = (): React.ReactElement | null => {
     return content;
   };
 
-  const handleVerify = async (signedMessage: string): Promise<void> => {
+  const handleVerify = async (signedMessage: string, shouldDetach: boolean): Promise<void> => {
     if (!signedData) return undefined;
     await signedData.create();
-    await signedData?.verifySignature(signedMessage);
+    if (shouldDetach) {
+      await signedData.verifyDetachedSignature(signedMessage);
+    } else {
+      await signedData.verifySignature(signedMessage);
+    }
   };
 
   if (!certs) {
@@ -88,7 +95,7 @@ export const DemoPage = (): React.ReactElement | null => {
         <L.Div _inner>
           {selectedCert && (
             <L.Button onClick={onClickContinue}>
-              Продолжить
+              Continue
             </L.Button>
           )}
         </L.Div>

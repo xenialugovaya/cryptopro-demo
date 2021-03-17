@@ -4,8 +4,8 @@ import * as L from 'korus-ui';
 interface MessageFormProps {
   handleEncrypt: (message: string) => Promise<string | undefined>
   handleDecrypt: (encryptedMessage: string) => Promise<string | undefined>
-  handleSign: (message: string) => Promise<string | undefined>
-  handleVerify: (signedMessage: string) => Promise<void>
+  handleSign: (message: string, shouldDetach: boolean) => Promise<string | undefined>
+  handleVerify: (signedMessage: string, shouldDetach: boolean) => Promise<void>
 }
 
 export const MessageForm = ({
@@ -18,6 +18,7 @@ export const MessageForm = ({
   const [signedMessage, setSignedMessage] = useState('');
   const [encryptedMessage, setEncryptedMessage] = useState('');
   const [verified, setVerified] = useState<boolean | undefined>();
+  const [shouldDetach, setShouldDetach] = useState(false);
 
   const onEncryptClick = async () => {
     const encrypted = await handleEncrypt(message);
@@ -30,27 +31,35 @@ export const MessageForm = ({
   };
 
   const onSignClick = async () => {
-    const signed = await handleSign(message);
+    const signed = await handleSign(message, shouldDetach);
     if (signed !== undefined) setSignedMessage(signed);
   };
 
   const onVerifyClick = async () => {
     try {
-      await handleVerify(signedMessage);
+      await handleVerify(signedMessage, shouldDetach);
       setVerified(true);
     } catch (error) {
+      console.error(error);
       setVerified(false);
     }
   };
 
   return (
     <L.Div>
+      <L.H3>Type some message</L.H3>
       <L.Textarea
         value={message}
         onChange={(ev) => setMessage(ev.component.value)}
       />
       {message && (
       <>
+        <L.CheckBox
+          value={shouldDetach}
+          onChange={() => setShouldDetach(!shouldDetach)}
+        >
+          Should detach signature
+        </L.CheckBox>
         <L.Button onClick={onSignClick}>Sign</L.Button>
         <L.Button onClick={onEncryptClick}>Encrypt</L.Button>
       </>

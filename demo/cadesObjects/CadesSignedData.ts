@@ -41,7 +41,6 @@ export default class SignData {
   public async signContent(
     signer: CPSigner,
     encodingType = this.cadesplugin.CADESCOM_CADES_X_LONG_TYPE_1,
-    shouldDetachSignature = false,
   ): Promise<string> {
     if (!this.signedData) {
       throw new Error('SignedData was not created');
@@ -49,10 +48,26 @@ export default class SignData {
     const signedContent = await this.signedData.SignCades(
       signer,
       encodingType,
-      shouldDetachSignature,
     );
 
     console.log('Content was signed successfully!');
+    return signedContent;
+  }
+
+  public async signContentDetachedSignature(
+    signer: CPSigner,
+    encodingType = this.cadesplugin.CADESCOM_CADES_X_LONG_TYPE_1,
+  ): Promise<string> {
+    if (!this.signedData) {
+      throw new Error('SignedData was not created');
+    }
+    const signedContent = await this.signedData.SignCades(
+      signer,
+      encodingType,
+      true,
+    );
+
+    console.log('Content was signed successfully with detached signature!');
     return signedContent;
   }
 
@@ -65,6 +80,18 @@ export default class SignData {
     }
 
     await this.signedData.VerifyCades(signedContent, encodingType);
+    console.log('Content was verified successfully!');
+  }
+
+  public async verifyDetachedSignature(
+    signedContent: string,
+    encodingType = this.cadesplugin.CADESCOM_CADES_X_LONG_TYPE_1,
+  ): Promise<void> {
+    if (!this.signedData) {
+      throw new Error('SignedData was not created');
+    }
+
+    await this.signedData.VerifyCades(signedContent, encodingType, true);
     console.log('Content was verified successfully!');
   }
 }

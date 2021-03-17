@@ -18,7 +18,7 @@ export const CertificateList = ({
   setCertObject,
 }: CertificateListProps): React.ReactElement => (
   <L.Div _inner _txtCenter>
-    <L.H3 _marginBottom>Выберите сертификат для подписания</L.H3>
+    <L.H3>Choose certificate</L.H3>
     <L.Div _table>
       <L.Table _layoutFixed>
         <L.ColGroup>
