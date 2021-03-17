@@ -45,4 +45,12 @@ export default class Signer {
 
     return this.signer;
   }
+
+  public async setTSAAddress(url = 'http://testca.cryptopro.ru/tsp/'): Promise<void> {
+    if (!this.signer) {
+      throw new Error('Signer was not created');
+    }
+
+    await this.signer.propset_TSAAddress(url);
+  }
 }

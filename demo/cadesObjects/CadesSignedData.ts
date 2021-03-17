@@ -46,12 +46,12 @@ export default class SignData {
     if (!this.signedData) {
       throw new Error('SignedData was not created');
     }
-
     const signedContent = await this.signedData.SignCades(
       signer,
       encodingType,
       shouldDetachSignature,
     );
+
     console.log('Content was signed successfully!');
     return signedContent;
   }

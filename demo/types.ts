@@ -37,7 +37,8 @@ export interface CadesEnvelopedData {
 export interface CPSigner {
   Certificate: WithPromise<CertificateObject>;
   TSAAddress: WithPromise<string>;
-  propset_Certificate(certificate: CertificateObject): void;
+  propset_Certificate(certificate: CertificateObject): WithPromise<void>;
+  propset_TSAAddress(url: string): WithPromise<void>
 }
 export interface RawSignature {
   SignHash(hashedData: CadesHashedData, certificate: CertificateObject): Promise<string>;
@@ -48,6 +49,7 @@ export interface CadesSignedData {
   ContentEncoding: WithPromise<number>;
   Content: WithPromise<string>;
   SignCades(signer: CPSigner, cadesBES: number, bDetached?: boolean): WithPromise<SignedMessage>;
+  Sign(signer: CPSigner, bDetached?: boolean, cadesBES?: number): WithPromise<SignedMessage>;
   VerifyCades(signedContent: string, cadesBES: number): WithPromise<void>
   SignHash(hashData: CadesHashedData, signer: CPSigner, cadesType: number, encodingType?: number): WithPromise<string>;
   propset_Content(content: string): void;

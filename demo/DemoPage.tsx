@@ -32,6 +32,7 @@ export const DemoPage = (): React.ReactElement | null => {
     if (!certObject || !signer) return;
     await signer.create();
     await signer.setCertificate(certObject);
+    await signer.setTSAAddress();
     setShowMessageForm(true);
   };
 
@@ -39,7 +40,7 @@ export const DemoPage = (): React.ReactElement | null => {
     if (!signer || !signedData) return undefined;
     await signedData.create();
     await signedData.setContent(message);
-    const signedMessage = await signedData?.signContent(signer.getSigner());
+    const signedMessage = await signedData.signContent(signer.getSigner());
     return signedMessage;
   };
 
@@ -58,6 +59,12 @@ export const DemoPage = (): React.ReactElement | null => {
     await envelopedData.getDecryptedMessage(encryptedMessage);
     const content = await envelopedData.getContent();
     return content;
+  };
+
+  const handleVerify = async (signedMessage: string): Promise<void> => {
+    if (!signedData) return undefined;
+    await signedData.create();
+    await signedData?.verifySignature(signedMessage);
   };
 
   if (!certs) {
@@ -91,6 +98,7 @@ export const DemoPage = (): React.ReactElement | null => {
         handleEncrypt={handleEncrypt}
         handleDecrypt={handleDecrypt}
         handleSign={handleSign}
+        handleVerify={handleVerify}
       />
       )}
     </L.Div>
