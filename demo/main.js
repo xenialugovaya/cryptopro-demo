@@ -53716,7 +53716,7 @@ var DemoPage = function () {
             }
         });
     }); };
-    var handleEncrypt = function (message) { return __awaiter(void 0, void 0, void 0, function () {
+    var handleEncrypt = function (message) { return __awaiter(void 0, void 0, Promise, function () {
         var encrypted;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -53739,7 +53739,7 @@ var DemoPage = function () {
             }
         });
     }); };
-    var handleDecrypt = function (encryptedMessage) { return __awaiter(void 0, void 0, void 0, function () {
+    var handleDecrypt = function (encryptedMessage) { return __awaiter(void 0, void 0, Promise, function () {
         var content;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -53759,7 +53759,7 @@ var DemoPage = function () {
             }
         });
     }); };
-    var handleVerify = function (signedMessage, shouldDetach) { return __awaiter(void 0, void 0, void 0, function () {
+    var handleVerify = function (signedMessage, shouldDetach) { return __awaiter(void 0, void 0, Promise, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -53847,7 +53847,7 @@ var EnvelopedData = /** @class */ (function () {
         this.envelopedData = null;
     }
     EnvelopedData.prototype.create = function () {
-        return __awaiter(this, void 0, void 0, function () {
+        return __awaiter(this, void 0, Promise, function () {
             var _a;
             return __generator(this, function (_b) {
                 switch (_b.label) {
@@ -53867,7 +53867,7 @@ var EnvelopedData = /** @class */ (function () {
         });
     };
     EnvelopedData.prototype.setContent = function (content) {
-        return __awaiter(this, void 0, void 0, function () {
+        return __awaiter(this, void 0, Promise, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -53884,7 +53884,7 @@ var EnvelopedData = /** @class */ (function () {
         });
     };
     EnvelopedData.prototype.getContent = function () {
-        return __awaiter(this, void 0, void 0, function () {
+        return __awaiter(this, void 0, Promise, function () {
             return __generator(this, function (_a) {
                 if (!this.envelopedData) {
                     throw new Error('EnvelopedData was not created');
@@ -53894,7 +53894,7 @@ var EnvelopedData = /** @class */ (function () {
         });
     };
     EnvelopedData.prototype.getEncryptedMessage = function () {
-        return __awaiter(this, void 0, void 0, function () {
+        return __awaiter(this, void 0, Promise, function () {
             var encrypted;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -53915,7 +53915,7 @@ var EnvelopedData = /** @class */ (function () {
         });
     };
     EnvelopedData.prototype.getDecryptedMessage = function (message) {
-        return __awaiter(this, void 0, void 0, function () {
+        return __awaiter(this, void 0, Promise, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -53931,7 +53931,7 @@ var EnvelopedData = /** @class */ (function () {
         });
     };
     EnvelopedData.prototype.addCertificate = function (certificate) {
-        return __awaiter(this, void 0, void 0, function () {
+        return __awaiter(this, void 0, Promise, function () {
             var recipients;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -54008,7 +54008,7 @@ var SignData = /** @class */ (function () {
         this.signedData = null;
     }
     SignData.prototype.create = function () {
-        return __awaiter(this, void 0, void 0, function () {
+        return __awaiter(this, void 0, Promise, function () {
             var _a;
             return __generator(this, function (_b) {
                 switch (_b.label) {
@@ -54028,7 +54028,7 @@ var SignData = /** @class */ (function () {
         });
     };
     SignData.prototype.setContent = function (content) {
-        return __awaiter(this, void 0, void 0, function () {
+        return __awaiter(this, void 0, Promise, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -54045,7 +54045,7 @@ var SignData = /** @class */ (function () {
         });
     };
     SignData.prototype.setEncoding = function (encodingType) {
-        return __awaiter(this, void 0, void 0, function () {
+        return __awaiter(this, void 0, Promise, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -54063,7 +54063,7 @@ var SignData = /** @class */ (function () {
     };
     SignData.prototype.signContent = function (signer, encodingType) {
         if (encodingType === void 0) { encodingType = this.cadesplugin.CADESCOM_CADES_X_LONG_TYPE_1; }
-        return __awaiter(this, void 0, void 0, function () {
+        return __awaiter(this, void 0, Promise, function () {
             var signedContent;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -54082,7 +54082,7 @@ var SignData = /** @class */ (function () {
     };
     SignData.prototype.signContentDetachedSignature = function (signer, encodingType) {
         if (encodingType === void 0) { encodingType = this.cadesplugin.CADESCOM_CADES_X_LONG_TYPE_1; }
-        return __awaiter(this, void 0, void 0, function () {
+        return __awaiter(this, void 0, Promise, function () {
             var signedContent;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -54101,7 +54101,7 @@ var SignData = /** @class */ (function () {
     };
     SignData.prototype.verifySignature = function (signedContent, encodingType) {
         if (encodingType === void 0) { encodingType = this.cadesplugin.CADESCOM_CADES_X_LONG_TYPE_1; }
-        return __awaiter(this, void 0, void 0, function () {
+        return __awaiter(this, void 0, Promise, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -54119,7 +54119,7 @@ var SignData = /** @class */ (function () {
     };
     SignData.prototype.verifyDetachedSignature = function (signedContent, encodingType) {
         if (encodingType === void 0) { encodingType = this.cadesplugin.CADESCOM_CADES_X_LONG_TYPE_1; }
-        return __awaiter(this, void 0, void 0, function () {
+        return __awaiter(this, void 0, Promise, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -54195,7 +54195,7 @@ var Signer = /** @class */ (function () {
         this.signer = null;
     }
     Signer.prototype.create = function () {
-        return __awaiter(this, void 0, void 0, function () {
+        return __awaiter(this, void 0, Promise, function () {
             var _a;
             return __generator(this, function (_b) {
                 switch (_b.label) {
@@ -54217,7 +54217,7 @@ var Signer = /** @class */ (function () {
         });
     };
     Signer.prototype.setCertificate = function (certificate) {
-        return __awaiter(this, void 0, void 0, function () {
+        return __awaiter(this, void 0, Promise, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -54234,7 +54234,7 @@ var Signer = /** @class */ (function () {
         });
     };
     Signer.prototype.getCertificate = function () {
-        return __awaiter(this, void 0, void 0, function () {
+        return __awaiter(this, void 0, Promise, function () {
             return __generator(this, function (_a) {
                 if (!this.signer) {
                     throw new Error('Signer was not created');
@@ -54251,7 +54251,7 @@ var Signer = /** @class */ (function () {
     };
     Signer.prototype.setTSAAddress = function (url) {
         if (url === void 0) { url = 'http://testca.cryptopro.ru/tsp/'; }
-        return __awaiter(this, void 0, void 0, function () {
+        return __awaiter(this, void 0, Promise, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -54326,7 +54326,7 @@ var Store = /** @class */ (function () {
         this.store = null;
     }
     Store.prototype.create = function () {
-        return __awaiter(this, void 0, void 0, function () {
+        return __awaiter(this, void 0, Promise, function () {
             var _a;
             return __generator(this, function (_b) {
                 switch (_b.label) {
@@ -54346,7 +54346,7 @@ var Store = /** @class */ (function () {
         });
     };
     Store.prototype.open = function () {
-        return __awaiter(this, void 0, void 0, function () {
+        return __awaiter(this, void 0, Promise, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -54362,7 +54362,7 @@ var Store = /** @class */ (function () {
         });
     };
     Store.prototype.close = function () {
-        return __awaiter(this, void 0, void 0, function () {
+        return __awaiter(this, void 0, Promise, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -54379,7 +54379,7 @@ var Store = /** @class */ (function () {
     };
     Store.prototype.getCertificates = function (param, option) {
         if (param === void 0) { param = this.cadesplugin.CAPICOM_CERTIFICATE_FIND_TIME_VALID; }
-        return __awaiter(this, void 0, void 0, function () {
+        return __awaiter(this, void 0, Promise, function () {
             var certsCollection, filteredCertsCollection, _a, count, certificates, i, _b, _c;
             return __generator(this, function (_d) {
                 switch (_d.label) {
@@ -54802,7 +54802,7 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var getAllValidCerts = function (store) { return __awaiter(void 0, void 0, void 0, function () {
+var getAllValidCerts = function (store) { return __awaiter(void 0, void 0, Promise, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, (store === null || store === void 0 ? void 0 : store.create())];
@@ -54940,7 +54940,7 @@ var stringToObj = function (string) {
         return obj;
     }, {});
 };
-var parseCertificate = function (certificate) { return __awaiter(void 0, void 0, void 0, function () {
+var parseCertificate = function (certificate) { return __awaiter(void 0, void 0, Promise, function () {
     var subject, _a, issuer, _b, serial, thumbprint;
     return __generator(this, function (_c) {
         switch (_c.label) {
@@ -54968,7 +54968,7 @@ var parseCertificate = function (certificate) { return __awaiter(void 0, void 0,
         }
     });
 }); };
-var parseCertificateArray = function (certs) { return __awaiter(void 0, void 0, void 0, function () {
+var parseCertificateArray = function (certs) { return __awaiter(void 0, void 0, Promise, function () {
     var parsedCerts, i, current, parsed;
     return __generator(this, function (_a) {
         switch (_a.label) {
