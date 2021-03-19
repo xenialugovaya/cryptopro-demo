@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   mode: process.env.NODE_ENV || 'development',
@@ -8,9 +9,9 @@ module.exports = {
     main: './demo/index.tsx',
   },
   output: {
-    path: path.resolve('dist', 'demo'),
+    path: path.resolve(__dirname, 'dist'),
     filename: '[name].js',
-    publicPath: '/',
+    publicPath: '',
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
@@ -25,8 +26,14 @@ module.exports = {
       },
       {
         test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true,
+            },
+          },
+        ],
       },
     ],
   },
@@ -42,8 +49,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'Crypto Pro Demo',
       template: 'public/index.html',
-      inject: 'head',
-      hash: true,
     }),
+    new CleanWebpackPlugin(),
   ],
 };

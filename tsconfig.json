@@ -26,6 +26,6 @@
     ],
     "include": [
       "demo"
-, "cadesplugin"    ]
+, "cadesplugin", "index.tsx"    ]
 }
   
