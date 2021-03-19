@@ -46,22 +46,39 @@ export const MessageForm = ({
   };
 
   return (
-    <L.Div>
-      <L.H3>Type some message</L.H3>
+    <L.Div className="ui form">
+      <L.H3>Введите сообщение</L.H3>
       <L.Textarea
         value={message}
         onChange={(ev) => setMessage(ev.component.value)}
       />
+      <br />
+      <br />
       {message && (
       <>
+        <L.Button
+          className="ui orange button"
+          onClick={onSignClick}
+        >
+          Подписать
+
+        </L.Button>
+        <L.Button
+          className="ui orange button"
+          onClick={onEncryptClick}
+        >
+          Зашифровать
+
+        </L.Button>
         <L.CheckBox
+          className="ui checkbox"
           value={shouldDetach}
           onChange={() => setShouldDetach(!shouldDetach)}
         >
-          Should detach signature
+          Создать отсоединенную подпись
         </L.CheckBox>
-        <L.Button onClick={onSignClick}>Sign</L.Button>
-        <L.Button onClick={onEncryptClick}>Encrypt</L.Button>
+        <br />
+        <br />
       </>
       )}
       {signedMessage && (
@@ -69,7 +86,16 @@ export const MessageForm = ({
         <L.Textarea
           value={signedMessage}
         />
-        <L.Button onClick={onVerifyClick}>Verify</L.Button>
+        <br />
+        <br />
+        <L.Button
+          className="ui orange button"
+          onClick={onVerifyClick}
+        >
+          Проверить подпись
+        </L.Button>
+        <br />
+        <br />
         {verified !== undefined && (
         <L.P style={{ color: verified ? 'green' : 'red' }}>
           {verified ? 'Verified!' : 'Not Verified'}
@@ -82,7 +108,15 @@ export const MessageForm = ({
         <L.Textarea
           value={encryptedMessage}
         />
-        <L.Button onClick={onDecryptClick}>Decrypt</L.Button>
+        <br />
+        <br />
+        <L.Button
+          className="ui orange button"
+          onClick={onDecryptClick}
+        >
+          Расшифровать
+
+        </L.Button>
       </>
       )}
     </L.Div>

@@ -76,12 +76,19 @@ export const DemoPage = (): React.ReactElement | null => {
 
   if (!certs) {
     return (
-      <L.Button onClick={handleGetCertsClick}>Получить все действующие сертификаты</L.Button>
+      <L.Div style={{ padding: '50px 40px' }}>
+        <L.Button
+          className="ui orange button"
+          onClick={handleGetCertsClick}
+        >
+          Получить все действующие сертификаты
+        </L.Button>
+      </L.Div>
     );
   }
 
   return (
-    <L.Div>
+    <L.Div style={{ padding: '50px 40px' }}>
       {certs && (
       <CertificateList
         certs={certs}
@@ -91,11 +98,16 @@ export const DemoPage = (): React.ReactElement | null => {
         setCertObject={setCertObject}
       />
       )}
+      <br />
+      <br />
       <L.StickyPanel offsetTop={200}>
-        <L.Div _inner>
+        <L.Div>
           {selectedCert && (
-            <L.Button onClick={onClickContinue}>
-              Continue
+            <L.Button
+              className="ui orange button"
+              onClick={onClickContinue}
+            >
+              Продолжить
             </L.Button>
           )}
         </L.Div>

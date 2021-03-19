@@ -17,10 +17,10 @@ export const CertificateList = ({
   certsCollection,
   setCertObject,
 }: CertificateListProps): React.ReactElement => (
-  <L.Div _inner _txtCenter>
-    <L.H3>Choose certificate</L.H3>
-    <L.Div _table>
-      <L.Table _layoutFixed>
+  <L.Div>
+    <L.H3>Выберите сертификат</L.H3>
+    <L.Div>
+      <L.Table className="ui inverted table">
         <L.ColGroup>
           <L.Col style={{ width: '4rem' }} />
           <L.Col style={{ width: '24rem' }} />
@@ -29,13 +29,13 @@ export const CertificateList = ({
         </L.ColGroup>
         <L.THead>
           <L.Tr>
-            <L.Th _tableHeader />
-            <L.Th _tableHeader>Subject</L.Th>
-            <L.Th _tableHeader>Issuer</L.Th>
-            <L.Th _tableHeader>Serial</L.Th>
+            <L.Th />
+            <L.Th>Subject</L.Th>
+            <L.Th>Issuer</L.Th>
+            <L.Th>Serial</L.Th>
           </L.Tr>
         </L.THead>
-        <L.TBody _borderBottomNone>
+        <L.TBody>
           {certs?.map((cert, index) => (
             <L.Tr
               key={cert.thumbprint}
@@ -47,7 +47,7 @@ export const CertificateList = ({
             >
               <L.Td>
                 <L.RadioGroup value={selectedCert?.thumbprint}>
-                  <L.RadioButton value={cert.thumbprint} />
+                  <L.RadioButton className="ui radio checkbox orange" value={cert.thumbprint} />
                 </L.RadioGroup>
               </L.Td>
               <L.Td>{cert.subject.CN}</L.Td>

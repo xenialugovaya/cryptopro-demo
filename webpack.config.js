@@ -35,6 +35,26 @@ module.exports = {
           },
         ],
       },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      },
+      {
+        test: /\.(eot|png|ttf|svg|woff|woff2)$/,
+        loader: 'url-loader',
+      },
+      {
+        test: /\.(png|gif|jpe?g)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[path][name].[ext]',
+            },
+          },
+          'img-loader',
+        ],
+      },
     ],
   },
   devServer: {
